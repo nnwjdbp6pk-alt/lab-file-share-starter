@@ -23,3 +23,20 @@
 - Reason:
   - 협업 시 “계약”의 역할을 하는 문서가 필요
   - 구현체의 임의 확장을 억제
+
+## ADR-004: Local auth uses env-provisioned users for Phase 1
+- Status: Accepted
+- Reason:
+  - DB schema v1 does not include password storage fields.
+  - Phase 1 requires minimal login and RBAC enforcement.
+- Consequences:
+  - Credentials are supplied via `DEFAULT_USERS` in backend environment.
+  - Production should replace this with SSO/LDAP or a dedicated credential store.
+
+## ADR-005: doc_type filter maps to filename extension
+- Status: Accepted
+- Reason:
+  - OpenAPI includes `doc_type` query param while schema lacks a doc_type column.
+  - Filename extension provides a deterministic filter without schema changes.
+- Consequences:
+  - Clients should send extensions without the leading dot (e.g., `pdf`).
